@@ -3,7 +3,7 @@ package fr.goui.gouinote.login;
 /**
  * Menu buttons click listener.
  */
-public interface LoginMenuListener {
+interface LoginMenuListener {
 
     void onSignInClick();
 

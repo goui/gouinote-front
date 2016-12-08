@@ -5,7 +5,7 @@ import fr.goui.gouinote.IView;
 /**
  * View interface for the login account.
  */
-public interface ILoginAccountView extends IView {
+interface ILoginAccountView extends IView {
 
     void hideButton();
 
