@@ -1,10 +1,9 @@
 package fr.goui.gouinote.login;
 
 /**
- * Created by Goui-MSI on 08/12/2016.
+ * Presenter of the login account. Will try to sign in or create account depending on flag.
  */
-
-public class LoginAccountPresenter implements ILoginAccountPresenter {
+class LoginAccountPresenter implements ILoginAccountPresenter {
 
     private ILoginAccountView mView;
 
@@ -16,5 +15,12 @@ public class LoginAccountPresenter implements ILoginAccountPresenter {
     @Override
     public void detachView() {
         mView = null;
+    }
+
+    @Override
+    public void load(String nickname, String password, boolean isCreation) {
+        mView.showProgressBar();
+        mView.hideButton();
+        mView.lockControls();
     }
 }
