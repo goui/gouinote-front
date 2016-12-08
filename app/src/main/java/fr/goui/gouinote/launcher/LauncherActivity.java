@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.login.LoginActivity;
 
 /**
  * Splash screen waiting for the user to tap.
@@ -45,7 +46,8 @@ public class LauncherActivity extends AppCompatActivity implements ILauncherView
 
     @Override
     public void startLoginActivity() {
-        // TODO go to login activity
+        startActivity(LoginActivity.getStartingIntent(this));
+        finish();
     }
 
     @Override
