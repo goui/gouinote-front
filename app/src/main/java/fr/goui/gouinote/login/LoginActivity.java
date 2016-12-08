@@ -48,11 +48,13 @@ public class LoginActivity extends AppCompatActivity implements LoginMenuListene
      * @param isCreation true if create account, false if sign in
      */
     private void showAccountFragment(boolean isCreation) {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putBoolean(LoginAccountFragment.IS_CREATION, isCreation);
         LoginAccountFragment fragment = new LoginAccountFragment();
         fragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in_back, R.anim.slide_out_back);
         fragmentTransaction.replace(R.id.activity_login_content, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
