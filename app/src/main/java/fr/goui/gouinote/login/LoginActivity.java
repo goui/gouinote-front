@@ -34,12 +34,28 @@ public class LoginActivity extends AppCompatActivity implements LoginMenuListene
 
     @Override
     public void onSignInClick() {
-        // TODO go to the sign in screen
+        showAccountFragment(false);
     }
 
     @Override
     public void onCreateAccountClick() {
-        // TODO go to the create account screen
+        showAccountFragment(true);
+    }
+
+    /**
+     * Replaces the login menu screen by the login account screen.
+     *
+     * @param isCreation true if create account, false if sign in
+     */
+    private void showAccountFragment(boolean isCreation) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(LoginAccountFragment.IS_CREATION, isCreation);
+        LoginAccountFragment fragment = new LoginAccountFragment();
+        fragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.activity_login_content, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
