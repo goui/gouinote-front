@@ -13,7 +13,7 @@ import fr.goui.gouinote.R;
  * Activity switching between the login menu and the credentials typing screens.
  * Will go to the main screen.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginMenuListener {
 
     /**
      * Handles fragment transactions.
@@ -30,6 +30,21 @@ public class LoginActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activity_login_content, new LoginMenuFragment());
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onSignInClick() {
+        // TODO go to the sign in screen
+    }
+
+    @Override
+    public void onCreateAccountClick() {
+        // TODO go to the create account screen
+    }
+
+    @Override
+    public void onBeAGuestClick() {
+        // TODO go to the main activity as a guest
     }
 
     /**
