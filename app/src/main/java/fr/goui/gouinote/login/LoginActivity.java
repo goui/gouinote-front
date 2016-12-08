@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.main.MainActivity;
 
 /**
  * Activity switching between the login menu and the credentials typing screens.
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoginMenuListene
 
     @Override
     public void onBeAGuestClick() {
-        // TODO go to the main activity as a guest
+        startActivity(MainActivity.getStartingIntent(this, true));
     }
 
     /**
