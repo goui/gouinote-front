@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +16,8 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.main.note.NotesFragment;
+import fr.goui.gouinote.main.user.UsersFragment;
 
 import static fr.goui.gouinote.R.id.fab;
 
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolBar);
 
+        mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+        mTabLayout.setupWithViewPager(mViewPager);
         mFab.setVisibility(getIntent().getBooleanExtra(IS_A_GUEST, true) ? View.GONE : View.VISIBLE);
     }
 
@@ -57,5 +64,32 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(callingContext, MainActivity.class);
         intent.putExtra(IS_A_GUEST, isAGuest);
         return intent;
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return position == 0 ? new NotesFragment() : new UsersFragment();
+        }
+
+        @Override
+        public int getCount() {
+            // Show 2 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return position == 0 ? NotesFragment.NOTES : UsersFragment.USERS;
+        }
     }
 }
