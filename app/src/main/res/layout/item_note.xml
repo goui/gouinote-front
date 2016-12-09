@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/note_layout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+    <TextView
+        android:id="@+id/note_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="4dp"
+        android:textColor="@color/lightGray"
+        tools:text="3 hours ago"/>
+
+    <TextView
+        android:id="@+id/note_author_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/note_date_text_view"
+        android:padding="4dp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:text="Goui"/>
+
+    <TextView
+        android:id="@+id/note_content_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/note_author_text_view"
+        android:padding="4dp"
+        android:textSize="16sp"
+        tools:text="Je vais à l'iga si quelqu'un a besoin de quelque chose ?"/>
+
+    <TextView
+        android:id="@+id/note_number_of_loves_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/note_content_text_view"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:text="0"/>
+
+    <ImageButton
+        android:id="@+id/note_love_image_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/note_content_text_view"
+        android:layout_toLeftOf="@id/note_number_of_loves_text_view"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:src="@drawable/ic_love_empty"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/note_reply_image_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/note_content_text_view"
+        android:layout_toLeftOf="@id/note_love_image_button"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:src="@drawable/ic_reply"
+        android:visibility="gone"/>
+</RelativeLayout>
