@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/user_layout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+    <TextView
+        android:id="@+id/user_last_activity_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="4dp"
+        android:textAllCaps="true"
+        android:textColor="@color/lightGray"
+        android:textSize="12sp"
+        tools:text="3 hours ago"/>
+
+    <TextView
+        android:id="@+id/user_nickname_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/user_last_activity_text_view"
+        android:padding="4dp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Goui"/>
+
+    <TextView
+        android:id="@+id/user_nb_of_notes_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_nickname_text_view"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        tools:text="3 note(s)"/>
+</RelativeLayout>
