@@ -2,6 +2,7 @@ package fr.goui.gouinote.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     private boolean mIsListSpecific;
 
     private int mExpandedPosition = -1;
+
+    private RecyclerView mRecyclerView;
 
     public NoteListAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
@@ -62,6 +65,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     }
 
     @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
     public void onBindViewHolder(NoteListViewHolder holder, final int position) {
         holder.position = position;
         final boolean isExpanded = position == mExpandedPosition;
@@ -73,6 +82,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1 : position;
+                TransitionManager.beginDelayedTransition(mRecyclerView);
                 notifyDataSetChanged();
             }
         });
