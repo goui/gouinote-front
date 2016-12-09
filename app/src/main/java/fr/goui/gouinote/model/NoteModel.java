@@ -16,6 +16,16 @@ public class NoteModel extends Observable {
 
     private NoteModel() {
         notes = new ArrayList<>();
+        Note note0 = new Note();
+        note0.setDate(System.currentTimeMillis());
+        note0.setNickname("Goui");
+        note0.setContent("Je vais à l'iga, quelqu'un a besoin de quelque chose ?");
+        notes.add(note0);
+        Note note1 = new Note();
+        note1.setDate(System.currentTimeMillis());
+        note1.setNickname("Erika");
+        note1.setContent("Je vais à l'école !");
+        notes.add(note1);
     }
 
     public static NoteModel getInstance() {

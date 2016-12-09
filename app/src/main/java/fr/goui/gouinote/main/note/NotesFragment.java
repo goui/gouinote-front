@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.adapter.NoteListAdapter;
+import fr.goui.gouinote.adapter.SimpleDividerItemDecoration;
 
 /**
  * The screen showing all the notes.
@@ -38,7 +40,8 @@ public class NotesFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(null);
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        mRecyclerView.setAdapter(new NoteListAdapter(getActivity()));
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

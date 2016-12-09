@@ -4,6 +4,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -13,7 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:padding="4dp"
+        android:textAllCaps="true"
         android:textColor="@color/lightGray"
+        android:textSize="12sp"
         tools:text="3 hours ago"/>
 
     <TextView
@@ -23,7 +27,9 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/note_date_text_view"
         android:padding="4dp"
+        android:textAllCaps="true"
         android:textColor="@color/colorAccent"
+        android:textSize="12sp"
         android:textStyle="bold"
         tools:text="Goui"/>
 
@@ -32,8 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/note_author_text_view"
-        android:padding="4dp"
-        android:textSize="16sp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         tools:text="Je vais à l'iga si quelqu'un a besoin de quelque chose ?"/>
 
     <TextView
@@ -43,8 +49,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/note_content_text_view"
         android:gravity="center"
-        android:visibility="gone"
-        tools:text="0"/>
+        android:text="0"
+        android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/note_love_image_button"
