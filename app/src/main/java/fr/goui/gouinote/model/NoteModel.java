@@ -2,12 +2,13 @@ package fr.goui.gouinote.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
- * Runtime model containing all the notes.
+ * Cache model containing all the notes.
  * Is a singleton.
  */
-public class NoteModel {
+public class NoteModel extends Observable {
 
     private static NoteModel instance;
 
@@ -30,5 +31,7 @@ public class NoteModel {
 
     public void setNotes(List<Note> notes_p) {
         notes = notes_p;
+        setChanged();
+        notifyObservers();
     }
 }
