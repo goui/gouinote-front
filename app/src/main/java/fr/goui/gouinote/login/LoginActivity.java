@@ -1,5 +1,6 @@
 package fr.goui.gouinote.login;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginMenuListene
 
     @Override
     public void onBeAGuestClick() {
-        startActivity(MainActivity.getStartingIntent(this, true));
+        startActivity(MainActivity.getStartingIntent(this, true), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     /**
