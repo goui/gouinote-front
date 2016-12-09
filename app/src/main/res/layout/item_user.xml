@@ -40,5 +40,5 @@
         android:layout_below="@id/user_nickname_text_view"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        tools:text="3 note(s)"/>
+        android:text="@string/Zero_notes"/>
 </RelativeLayout>
