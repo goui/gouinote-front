@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -77,8 +76,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         holder.nbOfLovesTextView.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.loveImageButton.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.replyImageButton.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-        holder.layout.setActivated(isExpanded);
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setActivated(isExpanded);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1 : position;
@@ -114,9 +113,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
 
     static class NoteListViewHolder extends RecyclerView.ViewHolder {
         int position;
-
-        @BindView(R.id.note_layout)
-        RelativeLayout layout;
 
         @BindView(R.id.note_author_text_view)
         TextView authorTextView;
