@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
 import fr.goui.gouinote.main.note.NotesFragment;
+import fr.goui.gouinote.main.user.UserActivity;
 import fr.goui.gouinote.main.user.UserClickEvent;
 import fr.goui.gouinote.main.user.UsersFragment;
 
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserClickEvent(UserClickEvent event) {
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, event.getSharedElement(), "user_avatar");
+        startActivity(UserActivity.getStartingIntent(this, event.getUser().getNickname()), options.toBundle());
     }
 
     /**

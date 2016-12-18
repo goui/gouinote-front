@@ -28,10 +28,23 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="AppTheme.NoActionBar.Explode" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Main" parent="AppTheme.NoActionBar">
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@android:transition/explode</item>
         <item name="android:windowExitTransition">@android:transition/explode</item>
+    </style>
+
+    <style name="AppTheme.User" parent="AppTheme">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/transition_user_activity
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/transition_user_activity
+        </item>
     </style>
 
 </resources>

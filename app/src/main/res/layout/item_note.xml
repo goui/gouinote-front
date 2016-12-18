@@ -37,7 +37,7 @@
         android:id="@+id/note_content_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/note_author_text_view"
+        android:layout_below="@id/note_date_text_view"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         tools:text="Je vais à l'iga si quelqu'un a besoin de quelque chose ?"/>
