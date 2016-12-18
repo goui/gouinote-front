@@ -13,13 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
 import fr.goui.gouinote.main.note.NotesFragment;
+import fr.goui.gouinote.main.user.UserClickEvent;
 import fr.goui.gouinote.main.user.UsersFragment;
-
-import static fr.goui.gouinote.R.id.fab;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
 
-    @BindView(fab)
+    @BindView(R.id.fab)
     FloatingActionButton mFab;
 
     @Override
@@ -51,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
         mFab.setVisibility(getIntent().getBooleanExtra(IS_A_GUEST, true) ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserClickEvent(UserClickEvent event) {
     }
 
     /**

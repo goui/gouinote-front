@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Observable;
@@ -14,6 +17,7 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.main.user.UserClickEvent;
 import fr.goui.gouinote.model.User;
 import fr.goui.gouinote.model.UserModel;
 
@@ -55,7 +59,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     }
 
     @Override
-    public void onBindViewHolder(UserListViewHolder holder, int position) {
+    public void onBindViewHolder(final UserListViewHolder holder, int position) {
         holder.position = position;
         final User user = mUsers.get(position);
         if (user != null) {
@@ -64,6 +68,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
                 holder.lastActivityTextView.setText("" + user.getNotes().get(0).getDate());
                 holder.nbOfNotesTextView.setText(user.getNotes().size() + " note(s)");
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new UserClickEvent(user, holder.avatarImageView));
+                }
+            });
         }
     }
 
@@ -83,6 +93,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
 
     static class UserListViewHolder extends RecyclerView.ViewHolder {
         int position;
+
+        @BindView(R.id.user_avatar_image_view)
+        ImageView avatarImageView;
 
         @BindView(R.id.user_nickname_text_view)
         TextView nicknameTextView;
