@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import fr.goui.gouinote.adapter.SimpleDividerItemDecoration;
 /**
  * The screen showing all the notes.
  */
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment implements INotesView {
 
     public static final String NOTES = "NOTES";
 
@@ -31,6 +32,8 @@ public class NotesFragment extends Fragment {
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private INotesPresenter mPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,11 +49,36 @@ public class NotesFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // TODO refresh content
+                mPresenter.load();
             }
         });
+
+        mPresenter = new NotesPresenter();
+        mPresenter.attachView(this);
+        mPresenter.load();
 
         return rootView;
     }
 
+    @Override
+    public void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+        mPresenter = null;
+    }
 }
