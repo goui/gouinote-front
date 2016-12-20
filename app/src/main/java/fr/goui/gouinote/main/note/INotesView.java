@@ -5,5 +5,5 @@ import fr.goui.gouinote.IView;
 /**
  * View interface for the list of all notes.
  */
-public interface INotesView extends IView {
+interface INotesView extends IView {
 }
