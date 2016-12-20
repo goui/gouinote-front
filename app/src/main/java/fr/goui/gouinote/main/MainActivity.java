@@ -2,6 +2,7 @@ package fr.goui.gouinote.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -12,6 +13,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,7 +23,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.goui.gouinote.GouinoteApplication;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.login.LoginActivity;
 import fr.goui.gouinote.main.note.NotesFragment;
 import fr.goui.gouinote.main.user.UserActivity;
 import fr.goui.gouinote.main.user.UserClickEvent;
@@ -75,6 +80,34 @@ public class MainActivity extends AppCompatActivity {
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this, event.getSharedElement(), "user_avatar");
         startActivity(UserActivity.getStartingIntent(this, event.getUser().getNickname()), options.toBundle());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            startActivity(LoginActivity.getStartingIntent(this));
+            eraseLoginData();
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void eraseLoginData() {
+        GouinoteApplication application = GouinoteApplication.get(this);
+        application.setConnectedUser(null);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+        sharedPreferences.edit()
+                .clear()
+                .apply();
     }
 
     /**
