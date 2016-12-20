@@ -6,7 +6,9 @@ import android.text.TextUtils;
 
 import fr.goui.gouinote.GouinoteApplication;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.exception.ExceptionHandler;
 import fr.goui.gouinote.model.User;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -75,7 +77,11 @@ class LauncherPresenter implements ILauncherPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.showError(e.getMessage());
+                        String errorMessage = e.getMessage();
+                        if (e instanceof HttpException) {
+                            errorMessage = ExceptionHandler.getMessage(e);
+                        }
+                        mView.showError(errorMessage);
                         mView.startLoginActivity();
                     }
 
