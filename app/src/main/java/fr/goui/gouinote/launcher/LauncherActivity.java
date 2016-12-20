@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.goui.gouinote.R;
 import fr.goui.gouinote.login.LoginActivity;
+import fr.goui.gouinote.main.MainActivity;
 
 /**
  * Splash screen waiting for the user to tap.
@@ -47,6 +48,12 @@ public class LauncherActivity extends AppCompatActivity implements ILauncherView
     @Override
     public void startLoginActivity() {
         startActivity(LoginActivity.getStartingIntent(this));
+        finish();
+    }
+
+    @Override
+    public void startMainActivity() {
+        startActivity(MainActivity.getStartingIntent(this, false));
         finish();
     }
 

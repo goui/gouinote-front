@@ -8,4 +8,6 @@ import fr.goui.gouinote.IView;
 interface ILauncherView extends IView {
 
     void startLoginActivity();
+
+    void startMainActivity();
 }
