@@ -122,4 +122,11 @@ public class LoginAccountFragment extends Fragment implements ILoginAccountView 
         activity.startActivity(MainActivity.getStartingIntent(activity, false));
         activity.finish();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+        mPresenter = null;
+    }
 }
