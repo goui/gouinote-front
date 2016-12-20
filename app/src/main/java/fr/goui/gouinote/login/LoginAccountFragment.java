@@ -1,7 +1,9 @@
 package fr.goui.gouinote.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.goui.gouinote.R;
+import fr.goui.gouinote.main.MainActivity;
+import fr.goui.gouinote.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,5 +106,20 @@ public class LoginAccountFragment extends Fragment implements ILoginAccountView 
     @Override
     public void showError(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showResult(User user) {
+        Context context = getContext();
+        Toast.makeText(context,
+                String.format(getString(R.string.User_connected), user.getNickname()),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startMainActivity() {
+        FragmentActivity activity = getActivity();
+        activity.startActivity(MainActivity.getStartingIntent(activity, false));
+        activity.finish();
     }
 }
