@@ -32,6 +32,8 @@
             android:name=".main.user.UserActivity"
             android:theme="@style/AppTheme.User">
         </activity>
+        <activity android:name=".main.note.WriteNoteActivity">
+        </activity>
     </application>
 
 </manifest>
