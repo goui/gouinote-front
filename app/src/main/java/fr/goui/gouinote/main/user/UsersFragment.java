@@ -68,6 +68,7 @@ public class UsersFragment extends Fragment implements IUsersView {
     @Override
     public void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

@@ -68,6 +68,7 @@ public class NotesFragment extends Fragment implements INotesView {
     @Override
     public void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
