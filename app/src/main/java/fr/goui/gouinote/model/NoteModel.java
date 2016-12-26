@@ -10,6 +10,10 @@ import java.util.Observable;
  */
 public class NoteModel extends Observable {
 
+    public static final int ADD_ONE_REQUEST_CODE = 0;
+
+    public static final int REPLACE_ALL_REQUEST_CODE = 1;
+
     private static NoteModel instance;
 
     private List<Note> notes;
@@ -32,6 +36,12 @@ public class NoteModel extends Observable {
     public void setNotes(List<Note> notes_p) {
         notes = notes_p;
         setChanged();
-        notifyObservers();
+        notifyObservers(REPLACE_ALL_REQUEST_CODE);
+    }
+
+    public void addNote(Note note) {
+        notes.add(note);
+        setChanged();
+        notifyObservers(ADD_ONE_REQUEST_CODE);
     }
 }

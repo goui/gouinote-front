@@ -16,10 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Observable;
+import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +36,9 @@ import fr.goui.gouinote.main.note.WriteNoteActivity;
 import fr.goui.gouinote.main.user.UserActivity;
 import fr.goui.gouinote.main.user.UserClickEvent;
 import fr.goui.gouinote.main.user.UsersFragment;
+import fr.goui.gouinote.model.NoteModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainView, Observer {
 
     /**
      * Flag key.
@@ -51,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
+    @BindView(R.id.progress_bar_layout)
+    FrameLayout mProgressBarLayout;
+
+    private IMainPresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(WriteNoteActivity.getStartingIntent(MainActivity.this), WriteNoteActivity.REQUEST_CODE);
             }
         });
+
+        mPresenter = new MainPresenter();
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -76,13 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && requestCode == WriteNoteActivity.REQUEST_CODE) {
             String content = data.getStringExtra(WriteNoteActivity.INTENT_DATA);
-            // TODO send note to backend
+            mPresenter.load(content);
         }
     }
 
     @Override
     public void onPause() {
         EventBus.getDefault().unregister(this);
+        NoteModel.getInstance().deleteObserver(MainActivity.this);
         super.onPause();
     }
 
@@ -90,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        NoteModel.getInstance().addObserver(MainActivity.this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -125,6 +141,39 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences.edit()
                 .clear()
                 .apply();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showProgressBar() {
+        mProgressBarLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mProgressBarLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (observable instanceof NoteModel && (int) data == NoteModel.ADD_ONE_REQUEST_CODE) {
+            Toast.makeText(this, getString(R.string.Note_has_been_added), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     /**

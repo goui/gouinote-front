@@ -59,7 +59,7 @@ public class WriteNoteActivity extends AppCompatActivity {
 
         if (id == R.id.action_send_note) {
             if(TextUtils.isEmpty(mEditText.getText())) {
-                Toast.makeText(this, getString(R.string.Note_is_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.Error_note_is_empty), Toast.LENGTH_SHORT).show();
             } else {
                 Intent data = new Intent();
                 data.putExtra(INTENT_DATA, mEditText.getText().toString());
