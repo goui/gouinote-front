@@ -26,11 +26,14 @@ import fr.goui.gouinote.model.UserModel;
  */
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserListViewHolder> implements Observer {
 
+    private Context mContext;
+
     private LayoutInflater mLayoutInflater;
 
     private List<User> mUsers;
 
     public UserListAdapter(Context context) {
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mUsers = UserModel.getInstance().getUsers();
         UserModel.getInstance().addObserver(this);
@@ -65,7 +68,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         if (user != null) {
             holder.nicknameTextView.setText(user.getNickname());
             if (user.getNotes() != null && !user.getNotes().isEmpty()) {
-                holder.lastActivityTextView.setText("" + user.getNotes().get(0).getDate());
+                holder.lastActivityTextView.setText(getDateText(user.getNotes().get(user.getNotes().size() - 1).getDate()));
                 holder.nbOfNotesTextView.setText(user.getNotes().size() + " note(s)");
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +78,28 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
                 }
             });
         }
+    }
+
+    private String getDateText(long noteTime) {
+        long seconds = (System.currentTimeMillis() - noteTime) / 1000L;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        String dateText = "";
+        if (days > 0) {
+            dateText = "" + days;
+            dateText += " " + mContext.getString(R.string.days_ago);
+        } else if (hours > 0) {
+            dateText = "" + hours;
+            dateText += " " + mContext.getString(R.string.hours_ago);
+        } else if (minutes > 0) {
+            dateText = "" + minutes;
+            dateText += " " + mContext.getString(R.string.minutes_ago);
+        } else if (seconds > 0) {
+            dateText = "" + seconds;
+            dateText += " " + mContext.getString(R.string.seconds_ago);
+        }
+        return dateText;
     }
 
     @Override
