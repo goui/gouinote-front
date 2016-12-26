@@ -3,9 +3,11 @@ package fr.goui.gouinote.main.note;
 import java.util.List;
 
 import fr.goui.gouinote.GouinoteApplication;
+import fr.goui.gouinote.exception.ExceptionHandler;
 import fr.goui.gouinote.model.Note;
 import fr.goui.gouinote.model.NoteModel;
 import fr.goui.gouinote.network.NetworkService;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,7 +57,11 @@ class NotesPresenter implements INotesPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.showError(e.getMessage());
+                        String errorMessage = e.getMessage();
+                        if (e instanceof HttpException) {
+                            errorMessage = ExceptionHandler.getMessage(e);
+                        }
+                        mView.showError(errorMessage);
                         mView.hideProgressBar();
                     }
 
