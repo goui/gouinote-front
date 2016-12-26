@@ -5,13 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.goui.gouinote.R;
 
 public class WriteNoteActivity extends AppCompatActivity {
+
+    public static final int REQUEST_CODE = 100;
+
+    public static final String INTENT_DATA = "intent_data";
+
+    @BindView(R.id.activity_write_note_edit_text)
+    EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +58,14 @@ public class WriteNoteActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_send_note) {
-            // TODO send note to backend and return to main activity
+            if(TextUtils.isEmpty(mEditText.getText())) {
+                Toast.makeText(this, getString(R.string.Note_is_empty), Toast.LENGTH_SHORT).show();
+            } else {
+                Intent data = new Intent();
+                data.putExtra(INTENT_DATA, mEditText.getText().toString());
+                setResult(RESULT_OK, data);
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);

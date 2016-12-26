@@ -27,6 +27,7 @@ import fr.goui.gouinote.GouinoteApplication;
 import fr.goui.gouinote.R;
 import fr.goui.gouinote.login.LoginActivity;
 import fr.goui.gouinote.main.note.NotesFragment;
+import fr.goui.gouinote.main.note.WriteNoteActivity;
 import fr.goui.gouinote.main.user.UserActivity;
 import fr.goui.gouinote.main.user.UserClickEvent;
 import fr.goui.gouinote.main.user.UsersFragment;
@@ -64,9 +65,19 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO start write note activity
+                startActivityForResult(WriteNoteActivity.getStartingIntent(MainActivity.this), WriteNoteActivity.REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == WriteNoteActivity.REQUEST_CODE) {
+            String content = data.getStringExtra(WriteNoteActivity.INTENT_DATA);
+            // TODO send note to backend
+        }
     }
 
     @Override
