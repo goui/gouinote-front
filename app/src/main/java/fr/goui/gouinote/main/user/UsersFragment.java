@@ -75,4 +75,11 @@ public class UsersFragment extends Fragment implements IUsersView {
     public void showError(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+        mPresenter = null;
+    }
 }

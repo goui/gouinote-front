@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements IMainView, Observ
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
+        mPresenter = null;
     }
 
     /**

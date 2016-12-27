@@ -40,6 +40,7 @@ class UsersPresenter implements IUsersPresenter {
 
     @Override
     public void load() {
+        mView.showProgressBar();
         if (mSubscription != null) {
             mSubscription.unsubscribe();
         }
