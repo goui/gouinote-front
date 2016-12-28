@@ -36,6 +36,7 @@
         android:paddingTop="8dp">
 
         <TextView
+            android:id="@+id/user_nb_of_notes_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,6 +49,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/user_nb_of_likes_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

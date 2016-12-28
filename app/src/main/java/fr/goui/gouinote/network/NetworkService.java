@@ -23,7 +23,7 @@ import rx.Observable;
  */
 public interface NetworkService {
 
-    String BASE_URL = "http://192.168.0.137:8080/";
+    String BASE_URL = "http://192.168.0.11:8080/";
 
     @POST("user/createAccount")
     Observable<User> createUser(@Body User user);
@@ -37,8 +37,8 @@ public interface NetworkService {
     @GET("user/getAllUsers")
     Observable<List<User>> getAllUsers();
 
-    @GET("user/{nickname}/getAllNotes")
-    Observable<List<Note>> getNotesFromUser(@Path("nickname") String nickname);
+    @GET("user/{nickname}")
+    Observable<User> getUser(@Path("nickname") String nickname);
 
     @POST("user/addNote")
     Observable<Boolean> addNote(@Query("nickname") String nickname, @Body Note note);
